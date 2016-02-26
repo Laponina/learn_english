@@ -7,40 +7,37 @@ from PyQt5.uic import loadUi
 # with open('elementary words.json') as f: // я забыла, как это работает
 #     words = f.read()
 words = [
-    {
-        "english_word": "do",
-        "russian_word": "делать",
-        "remark": "You can do it!",
-        "rus_remark": "Ты можешь сделать это!"
-    },
-    {
-        "english_word": "play",
-        "russian_word": "играть",
-        "remark": "She plays the piano",
-        "rus_remark": "Она играет на пианино"
-    }
+  {
+    "english_word": "do",
+    "russian_word": "делать",
+    "remark": "You can do it!",
+    "rus_remark": "Ты можешь сделать это!"
+  },
+  {
+    "english_word": "play",
+    "russian_word": "играть",
+    "remark": "She plays the piano",
+    "rus_remark": "Она играет на пианино"
+  }
 ]
-
 
 class Translate_RU(QDialog):
     def __init__(self):
         super().__init__()
 
-        loadUi('qt_ui/torussian.ui', self)
+        loadUi('qt_ui/toenglish.ui', self)
         self.initui()
 
     def initui(self):
-        self.english_word.append(words[kol_done]['english_word'])
-        self.remark.setText(words[kol_done]['remark'])
-        self.buttonANSWER.clicked.connect(on_buttonANSWER)
+        self.russian_word.append(words[kol_done]['russian_word'])
+        self.remark.setText(words[kol_done]['rus_remark'])
 
-
-def on_buttonANSWER(kol_true):
+def on_buttonANSWER(kol_true, kol_done):
     # QLineEdit.clear()
     # print(widget.lineEdit.text())
     # widget.lineEdit_2.clear()
     # widget.lineEdit_2.insert(widget.lineEdit.text())
-    if widget.russian_word.toPlainText() == words[kol_done]['russian_word']:
+    if widget.english_word.toPlainText() == words[kol_done]['english_word']:
         print('YES')
         kol_true += 1
     else:

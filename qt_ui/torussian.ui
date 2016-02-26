@@ -65,19 +65,6 @@
     <string>Примечания:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="remark">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>190</y>
-     <width>301</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QScrollBar" name="process">
    <property name="geometry">
     <rect>
@@ -111,6 +98,19 @@
      <y>30</y>
      <width>58</width>
      <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="remark">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>311</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">

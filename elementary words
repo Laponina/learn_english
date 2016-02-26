@@ -1,0 +1,14 @@
+[
+  {
+    "english_word": "do",
+    "russian_word": "делать",
+    "remark": "You can do it!",
+    "rus_remark": "Ты можешь сделать это!"
+  },
+  {
+    "english_word": "play",
+    "russian_word": "играть",
+    "remark": "She plays the piano",
+    "rus_remark": "Она играет на пианино"
+  }
+]
