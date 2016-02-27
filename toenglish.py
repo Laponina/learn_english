@@ -1,25 +1,33 @@
 import sys
-
+import json
+import os
 from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.uic import loadUi
+from functools import partial
 
+# location = lambda x: os.path.join(
+#     os.path.dirname(os.path.realpath(__file__)), x)
 
-# with open('elementary words.json') as f: // я забыла, как это работает
-#     words = f.read()
+# with open(location('elementary words.json')) as f:
+#     words = json.load(f)
+#
+# print(words)
+
 words = [
-  {
-    "english_word": "do",
-    "russian_word": "делать",
-    "remark": "You can do it!",
-    "rus_remark": "Ты можешь сделать это!"
-  },
-  {
-    "english_word": "play",
-    "russian_word": "играть",
-    "remark": "She plays the piano",
-    "rus_remark": "Она играет на пианино"
-  }
+    {
+        "english_word": "do",
+        "russian_word": "делать",
+        "remark": "You can do it!",
+        "rus_remark": "Ты можешь сделать это!"
+    },
+    {
+        "english_word": "play",
+        "russian_word": "играть",
+        "remark": "She plays the piano",
+        "rus_remark": "Она играет на пианино"
+    }
 ]
+
 
 class Translate_RU(QDialog):
     def __init__(self):
@@ -31,12 +39,11 @@ class Translate_RU(QDialog):
     def initui(self):
         self.russian_word.append(words[kol_done]['russian_word'])
         self.remark.setText(words[kol_done]['rus_remark'])
+        self.buttonANSWER.clicked.connect(on_buttonANSWER, partial(on_buttonANSWER(), kol_done))
 
-def on_buttonANSWER(kol_true, kol_done):
-    # QLineEdit.clear()
-    # print(widget.lineEdit.text())
-    # widget.lineEdit_2.clear()
-    # widget.lineEdit_2.insert(widget.lineEdit.text())
+
+
+def on_buttonANSWER():
     if widget.english_word.toPlainText() == words[kol_done]['english_word']:
         print('YES')
         kol_true += 1
@@ -56,6 +63,10 @@ def on_button_next(kol_done):
 
 # widget.english_word.append(word['english_word'])
 # widget.remark.setText(word['remark'])
+# QLineEdit.clear()
+# print(widget.lineEdit.text())
+# widget.lineEdit_2.clear()
+# widget.lineEdit_2.insert(widget.lineEdit.text())
 
 kol_true = 0
 kol_done = 0
