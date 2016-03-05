@@ -5,28 +5,26 @@ from PyQt5.QtWidgets import QApplication, QDialog
 from PyQt5.uic import loadUi
 from functools import partial
 
-# location = lambda x: os.path.join(
-#     os.path.dirname(os.path.realpath(__file__)), x)
+location = lambda x: os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), x)
 
-# with open(location('elementary words.json')) as f:
-#     words = json.load(f)
-#
-# print(words)
+with open(location('data/elementary words')) as f:
+    words = json.load(f)
 
-words = [
-    {
-        "english_word": "do",
-        "russian_word": "делать",
-        "remark": "You can do it!",
-        "rus_remark": "Ты можешь сделать это!"
-    },
-    {
-        "english_word": "play",
-        "russian_word": "играть",
-        "remark": "She plays the piano",
-        "rus_remark": "Она играет на пианино"
-    }
-]
+# words = [
+#     {
+#         "english_word": "do",
+#         "russian_word": "делать",
+#         "remark": "You can do it!",
+#         "rus_remark": "Ты можешь сделать это!"
+#     },
+#     {
+#         "english_word": "play",
+#         "russian_word": "играть",
+#         "remark": "She plays the piano",
+#         "rus_remark": "Она играет на пианино"
+#     }
+# ]
 
 
 class Translate_RU(QDialog):
@@ -44,6 +42,7 @@ class Translate_RU(QDialog):
 
 
 def on_buttonANSWER():
+    global kol_true, kol_done
     if widget.english_word.toPlainText() == words[kol_done]['english_word']:
         print('YES')
         kol_true += 1

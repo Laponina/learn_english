@@ -22,6 +22,7 @@ class Example(QWidget):
 
         self.btn = QPushButton('Start', self)
         self.btn.move(40, 80)
+
         self.btn.clicked.connect(self.doAction)
 
         self.timer = QBasicTimer()
@@ -39,7 +40,7 @@ class Example(QWidget):
             self.btn.setText('Finished')
             return
 
-        self.step = self.step + 1
+        self.step += 1
         self.pbar.setValue(self.step)
 
 

@@ -62,7 +62,7 @@
   <widget class="QLabel" name="part_process">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>180</x>
      <y>30</y>
      <width>58</width>
      <height>17</height>
@@ -98,17 +98,20 @@
     <string>Don't know</string>
    </property>
   </widget>
-  <widget class="QSlider" name="process">
+  <widget class="QProgressBar" name="progressBar">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>230</x>
      <y>10</y>
-     <width>160</width>
-     <height>21</height>
+     <width>151</width>
+     <height>16</height>
     </rect>
    </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
+   <property name="value">
+    <number>24</number>
+   </property>
+   <property name="format">
+    <string/>
    </property>
   </widget>
  </widget>
