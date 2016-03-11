@@ -19,48 +19,46 @@ class Translate_RU(QDialog):
         super().__init__()
 
         loadUi('qt_ui/torussian.ui', self)
-        self.step = 0
         self.col_false = QColor(255, 0, 0)
         self.col_true = QColor(0, 255, 0)
+        self.col = QColor(0, 0, 0)
         self.initui()
 
     def initui(self):
-        self.english_word.append(words[kol_done]['english_word'])
+        self.english_word.setText(words[kol_done]['english_word'])  # append
         self.remark.setText(words[kol_done]['remark'])
         self.partProcess.setText('%s / %s' % (str(kol_done + 1), '10'))
+        self.buttonANSWER.setText('ANSWER')
+        self.buttonANSWER.setShortcut("Enter")
         self.buttonANSWER.clicked.connect(button_answer)
         self.buttonNEXT.clicked.connect(button_next)
         self.process()
 
     def process(self):
-        if self.step > 10:
-            pass
-        self.step += 1
-        self.progress.setValue(self.step)
+        # разобраться!
+        self.progress.setRange(1, 10)
+        self.progress.setValue(kol_done)
 
 
 def button_answer():
-    # widget.russian_word.setText("Test")
-    # widget.russian_word.setTextColor(QColor(255, 0, 0))
-
-
     global kol_done, kol_true
     if widget.russian_word.toPlainText() == words[kol_done]['russian_word']:
         print('YES')
-        widget.russian_word.toPlainText("Test")
         widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col_true.name())
         time.sleep(2)
         kol_true += 1
     else:
         print('NO')
-        widget.russian_word.setTextColor(widget.col_false)
+        widget.error.setText(words[kol_done]['russian_word'])
         widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col_false.name())
         widget.error.setText(words[kol_done]['russian_word'])
-        time.sleep(2)
-        widget.buttonANSWER.setText('Next')
+        time.sleep(2)  # почему задержка выполняется после всех действий?
+        widget.buttonANSWER.setText('Next')  # или лучше убрать возможность нажатия/ включать следующее слово
+        # по нажатию на следующую кнопку??
     kol_done += 1
     widget.english_word.clear()
     widget.russian_word.clear()
+    widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col.name())
 
 
 def button_next():
@@ -71,6 +69,7 @@ def button_next():
     kol_done += 1
     widget.english_word.clear()
     widget.russian_word.clear()
+    widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col.name())
 
 
 def line_treatment(str):
