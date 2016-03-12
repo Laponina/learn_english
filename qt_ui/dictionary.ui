@@ -13,15 +13,28 @@
   <property name="windowTitle">
    <string>Dictionary</string>
   </property>
-  <widget class="QListView" name="list_words">
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
+  <widget class="QTableWidget" name="list_word">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>371</width>
-     <height>251</height>
+     <x>30</x>
+     <y>40</y>
+     <width>331</width>
+     <height>231</height>
     </rect>
    </property>
+   <property name="columnCount">
+    <number>4</number>
+   </property>
+   <column/>
+   <column/>
+   <column/>
+   <column/>
   </widget>
  </widget>
  <resources/>

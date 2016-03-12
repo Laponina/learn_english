@@ -29,7 +29,7 @@ class Translate_RU(QDialog):
         self.remark.setText(words[kol_done]['remark'])
         self.partProcess.setText('%s / %s' % (str(kol_done + 1), '10'))
         self.buttonANSWER.setText('ANSWER')
-        self.buttonANSWER.setShortcut("Enter")
+        self.buttonANSWER.autoDefault()
         self.buttonANSWER.clicked.connect(button_answer)
         self.buttonNEXT.clicked.connect(button_next)
         self.process()
@@ -44,36 +44,41 @@ def button_answer():
     global kol_done, kol_true
     if widget.russian_word.toPlainText() == words[kol_done]['russian_word']:
         print('YES')
+        widget.buttonANSWER.setDisabled(True)
         widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col_true.name())
         time.sleep(2)
         kol_true += 1
     else:
         print('NO')
         widget.error.setText(words[kol_done]['russian_word'])
+        widget.buttonANSWER.setDisabled(True)
         widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col_false.name())
         widget.error.setText(words[kol_done]['russian_word'])
-        time.sleep(2)  # почему задержка выполняется после всех действий?
-        widget.buttonANSWER.setText('Next')  # или лучше убрать возможность нажатия/ включать следующее слово
-        # по нажатию на следующую кнопку??
+        time.sleep(2)  # TODO: почему задержка выполняется после всех действий?
+        # widget.buttonANSWER.setText('Next')
     kol_done += 1
-    widget.english_word.clear()
-    widget.russian_word.clear()
+    # widget.english_word.clear()
+    # widget.russian_word.clear()
+    widget.buttonANSWER.setDisabled(False)  # !
     widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col.name())
 
 
 def button_next():
     global kol_done
     widget.error.setText(words[kol_done]['russian_word'])
-    time.sleep(2)
     widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col_false.name())
+    widget.buttonANSWER.setDisabled(True)  # !
+    time.sleep(2)
     kol_done += 1
+    # TODO: кнопка не становится неактивной, если это писать. Как исправить? (тоже самое при нажатии на кнопку "ANSWER")
+    widget.buttonANSWER.setDisabled(False)
     widget.english_word.clear()
     widget.russian_word.clear()
     widget.russian_word.setStyleSheet("QTextEdit { color: %s }" % widget.col.name())
 
 
-def line_treatment(str):
-    # убрать лишние пробелы из введенной строки
+def line_treatment(ru_str):
+    # TODO: убрать лишние пробелы из введенной строки (потом)
     pass
 
 
