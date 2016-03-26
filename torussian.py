@@ -38,7 +38,6 @@ class Translate_RU(QDialog):
         self.buttonANSWER.setText('ANSWER')
         self.buttonANSWER.autoDefault()
         self.buttonANSWER.clicked.connect(self.button_answer)
-        self.buttonNEXT.clicked.connect(self.button_next)
         self.progress.setRange(1, len(self.words))
         self.update_progress()
 
@@ -47,42 +46,29 @@ class Translate_RU(QDialog):
         self.partProcess.setText('%s / %s' % (str(self.num_done + 1), str(len(self.words))))
 
     def button_answer(self):
-        # TODO: заходит лишний раз, думаю сделать зависимость от названия, но почему-то не выходит
         print('button ANSWER clicked')
-        # if self.buttonANSWER.text == 'ANSWER':
-        #     print('button ANSWER clicked!!')
         self.russian_word.setStyleSheet("QTextEdit { color: %s }" % self.col.name())
         if self.russian_word.toPlainText() == self.words[self.num_done]['russian_word']:  # если слово введено правильно
             print('YES')
-            self.buttonNEXT.setDisabled(True)  # делаем кнопку неактивной
             self.russian_word.setStyleSheet(
                 "QTextEdit { color: %s }" % self.col_true.name())  # меняю цвет текста на зеленый
             self.num_true += 1
         else:
             print('NO')
             self.error.setText(self.words[self.num_done]['russian_word'])  # выводим правильный ответ
-            self.buttonNEXT.setDisabled(True)  # делаем кнопку неактивной
             self.russian_word.setStyleSheet(
                 "QTextEdit { color: %s }" % self.col_false.name())  # меняю цвет текста на красный
         self.buttonANSWER.setText('Next')  # меняю название кнопки
         self.buttonANSWER.clicked.connect(self.answ_next)
-
-    def button_next(self):
-        print('button DONT KNOW clicked')
-        self.error.setText(self.words[self.num_done]['russian_word'])  # выводим правильный ответ
-        self.russian_word.setStyleSheet(
-            "QTextEdit { color: %s }" % self.col_false.name())  # меняю цвет текста на красный
-        self.buttonNEXT.setDisabled(True)  # делаем кнопку неактивной
-        self.buttonANSWER.setText('Next')  # меняю название кнопки
-        self.buttonANSWER.clicked.connect(self.answ_next)
+        self.buttonANSWER.clicked.disconnect(self.button_answer)
 
     def answ_next(self):
         print('button NEXT clicked')
         self.num_done += 1
         self.russian_word.setStyleSheet("QTextEdit { color: %s }" % self.col.name())  # возвращаю черный цвет текста
-        self.buttonNEXT.setDisabled(False)  # делаем кнопку активной
         self.buttonANSWER.setText('ANSWER')  # меняю название кнопки
         self.buttonANSWER.clicked.connect(self.button_answer)
+        self.buttonANSWER.clicked.disconnect(self.answ_next)
         print(self.num_done)
         if self.num_done < len(self.words):
             self.english_word.clear()
@@ -93,11 +79,10 @@ class Translate_RU(QDialog):
         else:
             self.showChildWindow()
         self.update_progress()
-        # self.progress.value = self.num_done
 
     def showChildWindow(self):
-        self.childForm, self.childWindow = Results.init(self.mainwindow)
-        self.childWindow.show()
+        self.childForm, self.Results = results.init()
+        results.show()
 
 
 class Results(QDialog):
@@ -108,8 +93,16 @@ class Results(QDialog):
         self.setWindowModality(Qt.WindowModal)
         self.setupUi()
 
-        def setupUi(self):
-            self.percentage.setText('сделано верно %s из %s' % (str(widget.num_true), str(widget.num_done)))
+    def setupUi(self):
+        self.percentage.setText('сделано верно %s из %s' % (str(widget.num_true), str(widget.num_done)))
+        self.setAttribute(Qt.WA_DeleteOnClose, True)
+        self.show()
+
+    def init(parentwindow):
+        SmallWindow = QDialog(parentwindow)
+        results = Results()
+        results.setupUi()
+        return results, SmallWindow
 
 
 def line_treatment(ru_str):
@@ -120,5 +113,6 @@ def line_treatment(ru_str):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     widget = Translate_RU()
+    results = Results()
     widget.show()
     sys.exit(app.exec_())

@@ -19,7 +19,7 @@
    </property>
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>290</x>
      <y>240</y>
      <width>87</width>
      <height>27</height>
@@ -79,19 +79,6 @@
    </property>
    <property name="text">
     <string>Примечания:</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="buttonNEXT">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>240</y>
-     <width>87</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Don't know</string>
    </property>
   </widget>
   <widget class="QLabel" name="partProcess">
