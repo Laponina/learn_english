@@ -57,9 +57,6 @@ def on_button_next(kol_done):
 
 
 # widget.Dialog.connect()
-
-
-
 # widget.english_word.append(word['english_word'])
 # widget.remark.setText(word['remark'])
 # QLineEdit.clear()

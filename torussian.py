@@ -1,13 +1,10 @@
 import sys
 import os
 import json
-import random
-import time
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QTableWidgetItem, QWidget
 from PyQt5.QtGui import QColor, QStandardItem
 from PyQt5.uic import loadUi
 from PyQt5.QtCore import Qt
-
 
 location = lambda x: os.path.join(
     os.path.dirname(os.path.realpath(__file__)), x)
@@ -27,6 +24,7 @@ class Translate_RU(QDialog):
         self.wrong_words = []
         self.load_data()
         self.initui()
+        self.show()
 
     def load_data(self):
         with open(location('data/elementary words')) as f:
@@ -39,6 +37,7 @@ class Translate_RU(QDialog):
         self.buttonANSWER.autoDefault()
         self.buttonANSWER.clicked.connect(self.button_answer)
         self.progress.setRange(1, len(self.words))
+        # self.ButtonExit.clicked.connect(lambda : self.close())
         self.update_progress()
 
     def update_progress(self):
@@ -77,52 +76,55 @@ class Translate_RU(QDialog):
             self.error.clear()
             self.english_word.setText(self.words[self.num_done]['english_word'])  # append
             self.remark.setText(self.words[self.num_done]['remark'])
-        else:
-            # self.buttonANSWER.clicked.disconnect(self.answ_next)
-            self.showChildWindow()
+
         self.update_progress()
+        if self.num_done >= len(self.words):
+            self.complete()
 
-    def showChildWindow(self):
-        # self.childForm, self.Results = results.init()
-        results = Results()
-        results.show()
-        # results.setupUi()
-
+    def complete(self):
+        print("complete")
+        self.results = Results(self)
+        self.close()
 
 
 class Results(QDialog):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
 
         loadUi('qt_ui/results.ui', self)
-        self.words = widget.wrong_words
+        self.parent = parent
+        self.wrong_words = self.parent.wrong_words
+        self.row = 0
         self.setupUi()
+        self.show()
 
     def setupUi(self):
         self.setWindowModality(Qt.WindowModal)
-        self.percentage.setText('сделано верно %s из %s' % (str(widget.num_true), str(widget.num_done)))
+        self.percentage.setText('сделано верно %s из %s' % (str(self.parent.num_true), str(self.parent.num_done)))
         self.setAttribute(Qt.WA_DeleteOnClose, True)
-        self.listwords.insertRow(1)
-        self.show()
+        self.listwords.setColumnCount(2)
+        self.listwords.setRowCount(4)
+        self.listwords.verticalHeader().hide()
+        self.listwords.horizontalHeader().hide()
+        # self.listwords.setItem(1, 1, QTableWidgetItem("Hello"))
+        for word in self.wrong_words:
+            self.listwords.setItem(self.row, 0, QTableWidgetItem(word['english_word']))
+            self.listwords.setItem(self.row, 1, QTableWidgetItem(word['russian_word']))
+            self.row += 1
 
-        # def init(self):
-        #     # widget = QDialog(parentwindow)
-        #     # results = Results()
-        #     self.setupUi()
-        #     self.show()
-        #     return results, widget
 
+        # def init(parentwindow):
+        #     SmallWindow = QWidget(parentwindow)
+        #     form = Results()
+        #     form.setupUi(SmallWindow)
+        #     return form, SmallWindow
 
-def line_treatment(ru_str):
-    # TODO: убрать лишние пробелы из введенной строки (потом)
-    pass
-
+    def line_treatment(ru_str):
+        # TODO: убрать лишние пробелы из введенной строки (потом)
+        pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    widget = Translate_RU()
-    # if widget.num_done > len(widget.words):
-    results = Results()
-    results.show
-    widget.show()
+    translate_ru = Translate_RU()
+    # resulte = Results()
     sys.exit(app.exec_())
