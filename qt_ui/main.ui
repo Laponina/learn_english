@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>399</width>
+    <height>294</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Main</string>
   </property>
   <widget class="QPushButton" name="torussian">
    <property name="geometry">
@@ -42,14 +42,27 @@
   <widget class="QPushButton" name="customization">
    <property name="geometry">
     <rect>
-     <x>139</x>
+     <x>135</x>
      <y>140</y>
-     <width>122</width>
+     <width>130</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
     <string>customization</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="toexit">
+   <property name="geometry">
+    <rect>
+     <x>135</x>
+     <y>180</y>
+     <width>130</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>exit</string>
    </property>
   </widget>
  </widget>

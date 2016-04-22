@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>add_word</class>
+ <widget class="QDialog" name="add_word">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add word</string>
+  </property>
+  <widget class="QPushButton" name="btn_add">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>260</y>
+     <width>87</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="en_word">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>55</y>
+     <width>140</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ru_word">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>90</y>
+     <width>140</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="en_remark">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>125</y>
+     <width>140</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ru_remark">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>160</y>
+     <width>140</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_ru_word">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>60</y>
+     <width>92</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>english word</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_en_word">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>95</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>russian word</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_ru_remark">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>165</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>russian remark</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_remark">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>130</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>english remark</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

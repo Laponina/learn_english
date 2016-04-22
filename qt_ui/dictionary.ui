@@ -19,13 +19,13 @@
   <property name="modal">
    <bool>false</bool>
   </property>
-  <widget class="QTableWidget" name="list_word">
+  <widget class="QTableWidget" name="list_words">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>40</y>
-     <width>331</width>
-     <height>231</height>
+     <x>10</x>
+     <y>10</y>
+     <width>381</width>
+     <height>251</height>
     </rect>
    </property>
    <property name="columnCount">
@@ -35,6 +35,19 @@
    <column/>
    <column/>
    <column/>
+  </widget>
+  <widget class="QPushButton" name="add_words">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>270</y>
+     <width>87</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add</string>
+   </property>
   </widget>
  </widget>
  <resources/>
