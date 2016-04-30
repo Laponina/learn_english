@@ -13,7 +13,8 @@ location = lambda x: os.path.join(
 class Translate_RU(QDialog):
     def __init__(self, parent):
         super().__init__()
-
+        # TODO: вопрос про уровень/тему (в рус-англ тоже) запускается дочернеее
+        # loadUi('qt_ui/question.ui', self)
         loadUi('qt_ui/torussian.ui', self)
         self.parent = parent
         self.col_false = QColor(255, 0, 0)
@@ -49,6 +50,7 @@ class Translate_RU(QDialog):
             self.russian_word.setStyleSheet(
                 "QTextEdit { color: %s }" % self.col_true.name())  # меняю цвет текста на зеленый
             self.num_true += 1
+            self.words[self.num_done]["rating"] -= 10
         else:
             print('NO')
             self.wrong_words.append(self.words[self.num_done])
@@ -81,6 +83,10 @@ class Translate_RU(QDialog):
     def complete(self):
         print("complete")
         self.results = Results(self)
+        self.close()
+
+    def closeEvent(self, e):
+        self.main = MainWindow()
         self.close()
 
 
@@ -123,6 +129,7 @@ class Translate_EN(QDialog):
             self.english_word.setStyleSheet(
                 "QTextEdit { color: %s }" % self.col_true.name())  # меняю цвет текста на зеленый
             self.num_true += 1
+            self.words[self.num_done]["rating"] -= 10
         else:
             print('NO')
             self.wrong_words.append(self.words[self.num_done])
@@ -157,6 +164,10 @@ class Translate_EN(QDialog):
         self.results = Results(self)
         self.close()
 
+    def closeEvent(self, e):
+        self.main = MainWindow()
+        self.close()
+
 
 class Results(QDialog):
     def __init__(self, parent):
@@ -165,8 +176,10 @@ class Results(QDialog):
         loadUi('qt_ui/results.ui', self)
         self.parent = parent
         self.wrong_words = self.parent.wrong_words
+        self.column = 2
         self.row = 0
-        self.width = 338
+        self.width = 341 - 2
+        self.height = 201 - 2
         self.setupUi()
         self.show()
 
@@ -180,7 +193,9 @@ class Results(QDialog):
         self.listwords.setColumnWidth(0, self.width / 2)
         self.listwords.verticalHeader().hide()
         self.listwords.horizontalHeader().hide()
-        # TODO: сделать изменение размеров таблички по количеству слов
+        for num in range(len(self.wrong_words)):
+            self.listwords.setColumnWidth(num, self.width / self.column)  # изменила ширину столбцов
+            self.listwords.setRowHeight(num, self.height / len(self.wrong_words))
         # self.listwords.setItem(1, 1, QTableWidgetItem("Hello"))
         for word in self.wrong_words:
             self.listwords.setItem(self.row, 0, QTableWidgetItem(word['english_word']))
@@ -207,6 +222,7 @@ class MainWindow(QDialog):
         self.toenglish.clicked.connect(self.btn_english)
         self.customization.clicked.connect(self.btn_customization)
         self.toexit.clicked.connect(self.close)
+        self.start_test.clicked.connect(self.btn_test)
 
     def load_data(self):
         with open(location('data/elementary words')) as f:
@@ -224,6 +240,19 @@ class MainWindow(QDialog):
         self.dictionary = Customization(self)
         self.close()
 
+    def btn_test(self):
+        self.starttesing = StartTest(self)
+        self.close()
+
+
+class StartTest(QDialog):
+    def __init__(self, parent):
+        super().__init__()
+
+        loadUi('qt_ui/test.ui', self)
+        self.show()
+        # TODO: скачать тест на определение уровня
+
 
 class Customization(QDialog):
     def __init__(self, parent):
@@ -233,8 +262,8 @@ class Customization(QDialog):
         self.words = self.parent.words
         self.column = 4
         self.row = len(self.words)
-        self.width = 372
-        self.hight = 250
+        self.width = 492
+        self.hight = 270
         self.k_row = 0
         self.initui()
         self.show()
@@ -244,10 +273,11 @@ class Customization(QDialog):
         self.list_words.setRowCount(len(self.words))
         self.list_words.verticalHeader().hide()
         self.list_words.horizontalHeader().hide()
-        #TODO: подобрать оптимальную высоту, ширину для ячеек
+
         for num in range(self.column):
-                self.list_words.setColumnWidth(num, self.width / self.column)  # изменила ширину столбцов
-                self.list_words.setRowHeight(num, self.hight / self.row)
+            self.list_words.setColumnWidth(num, self.width / self.column)  # изменила ширину столбцов
+            self.list_words.setRowHeight(num, self.hight / self.row)
+
         for word in self.words:
             self.list_words.setItem(self.k_row, 0, QTableWidgetItem(word['english_word']))
             self.list_words.setItem(self.k_row, 1, QTableWidgetItem(word['russian_word']))
@@ -255,49 +285,76 @@ class Customization(QDialog):
             self.list_words.setItem(self.k_row, 3, QTableWidgetItem(word['rus_remark']))
             self.k_row += 1
         self.add_words.clicked.connect(self.btn_add)
+        self.toremove.clicked.connect(self.btn_remove)
+        self.tosave.clicked.connect(self.btn_save)
+        self.tocancel.clicked.connect(self.btn_cancel)
+        self.toback.clicked.connect(self.close)
+
+    def btn_remove(self):
+        # TODO: обработка ошибок
+        index = self.list_words.row(self.list_words.currentItem())
+        print(index)
+        self.words.pop(index)
+        self.list_words.removeRow(index)
+        for num in range(self.column):
+            self.list_words.setRowHeight(num, self.hight / len(self.words))
+        print('удалено')
+
+    def btn_save(self):
+        # TODO: обработка ошибок
+        self.words = []
+        print(self.list_words.rowCount())
+        el = 0
+        while el < self.list_words.rowCount() - 1:
+            en_word = self.list_words.item(el, 0).text()
+            ru_word = self.list_words.item(el, 1).text()
+            remark = self.list_words.item(el, 2).text()
+            ru_remark = self.list_words.item(el, 3).text()
+            new_word = {
+                "russian_word": ru_word,
+                "rus_remark": ru_remark,
+                "remark": remark,
+                "english_word": en_word,
+                "rating": 100
+            }
+            el += 1
+            self.words.append(new_word)
+        self.rewrite_file()
+
+    def rewrite_file(self):
+        with open(location('data/elementary words'), 'w') as f:
+            json.dump(self.words, f, ensure_ascii=False)
+
+    def btn_cancel(self):
+        self.load_data()
+        self.list_words.clear()
+        self.k_row = 0
+        for word in self.words:
+            self.list_words.setItem(self.k_row, 0, QTableWidgetItem(word['english_word']))
+            self.list_words.setItem(self.k_row, 1, QTableWidgetItem(word['russian_word']))
+            self.list_words.setItem(self.k_row, 2, QTableWidgetItem(word['remark']))
+            self.list_words.setItem(self.k_row, 3, QTableWidgetItem(word['rus_remark']))
+            self.k_row += 1
+
+    def load_data(self):
+        with open(location('data/elementary words')) as f:
+            self.words = json.load(f)
 
     def btn_add(self):
-        self.add = Add(self)
+        # TODO: how add theme of new word
+        self.list_words.setRowCount(self.list_words.rowCount() + 1)
 
     def closeEvent(self, e):
         self.main = MainWindow()
         self.close()
 
 
-class Add(QDialog):
-    def __init__(self, parent):
-        super().__init__()
-        loadUi('qt_ui/add_word.ui', self)
-        self.parent = parent
-        self.words = self.parent.words
-        self.new_word = {}
-        self.initui()
-        self.show()
-
-    def initui(self):
-        self.btn_add.clicked.connect(self.add)
-
-    def add(self):
-        self.new_word = {
-            "russian_word": self.ru_word.text(),
-            "english_word": self.en_word.text(),
-            "remark": self.en_remark.text(),
-            "rus_remark": self.ru_remark.text()
-        }
-        self.words.append(self.new_word)
-        self.rewrite_file()
-        self.close()
-
-    def rewrite_file(self):
-        with open(location('data/elementary words'), 'w') as f:
-            json.dump(self.words, f, ensure_ascii=False)
-
-
 def line_treatment(str):
     str = ' '.join(str.split())
     return str
 
-#TODO: сделать паузу, сохранение индекса слова (в файл index pause?)
+
+# TODO: сделать паузу, сохранение индекса слова (в файл index pause?)
 
 
 if __name__ == '__main__':

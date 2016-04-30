@@ -1,32 +1,34 @@
 [
   {
     "remark": "You can do it!",
+    "russian_word": "делать",
+    "rating": 100,
     "english_word": "do",
     "rus_remark": "Ты можешь сделать это!",
-    "russian_word": "делать"
+    "theme": "elementary"
   },
   {
     "remark": "She plays the piano",
+    "russian_word": "играть",
+    "rating": 100,
     "english_word": "play",
     "rus_remark": "Она играет на пианино",
-    "russian_word": "играть"
-  },
-  {
-    "remark": "She plays the piano",
-    "english_word": "play2",
-    "rus_remark": "Она играет на пианино",
-    "russian_word": "играть"
+    "theme": "elementary"
   },
   {
     "remark": "I like ice cream",
+    "russian_word": "нравиться",
+    "rating": 100,
     "english_word": "like",
     "rus_remark": "Мне нравится мороженое",
-    "russian_word": "нравиться"
+    "theme": "elementary"
   },
   {
-    "remark": "the wind blows",
-    "english_word": "wind",
-    "rus_remark": "ветер дует",
-    "russian_word": "ветер"
+    "remark": "1",
+    "russian_word": "1",
+    "rating": 100,
+    "english_word": "1",
+    "rus_remark": "1",
+    "theme": "elementary"
   }
 ]
