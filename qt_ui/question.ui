@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>Question</class>
+ <widget class="QDialog" name="Question">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,35 +16,38 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>40</y>
-     <width>251</width>
+     <x>100</x>
+     <y>20</y>
+     <width>151</width>
      <height>41</height>
     </rect>
    </property>
    <property name="text">
-    <string>Выберите уровень(набор слов)</string>
+    <string>Выберите набор слов</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="box_themes">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>100</y>
+     <x>30</x>
+     <y>80</y>
      <width>261</width>
      <height>27</height>
     </rect>
    </property>
-   <item>
-    <property name="text">
-     <string>начинающий уровень</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>все</string>
-    </property>
-   </item>
+  </widget>
+  <widget class="QPushButton" name="start_test">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>140</y>
+     <width>181</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Перейти к тестированию</string>
+   </property>
   </widget>
  </widget>
  <resources/>
