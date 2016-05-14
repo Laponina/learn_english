@@ -147,6 +147,24 @@
     <string/>
    </property>
   </widget>
+  <widget class="QPushButton" name="buttonSTOP">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>230</y>
+     <width>87</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Stop test</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

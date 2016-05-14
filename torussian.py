@@ -64,9 +64,14 @@ class Translate_RU(QDialog):
         self.buttonANSWER.setText('ANSWER')
         self.buttonANSWER.autoDefault()
         self.buttonANSWER.clicked.connect(self.button_answer)
+        self.buttonSTOP.clicked.connect(self.button_stop)
         self.progress.setRange(1, len(self.words))
         # self.ButtonExit.clicked.connect(lambda : self.close())
         self.update_progress()
+
+    def button_stop(self):
+        self.exit_question = Exit_question(self)
+        self.close
 
     def update_progress(self):
         self.progress.setValue(self.num_done + 1)
@@ -114,10 +119,6 @@ class Translate_RU(QDialog):
     def complete(self):
         print("complete")
         self.results = Results(self)  # вывод результатов - новое окно results
-        self.close()
-
-    def closeEvent(self, e):
-        self.main = MainWindow()
         self.close()
 
 
@@ -176,9 +177,15 @@ class Translate_EN(QDialog):
         self.buttonANSWER.setText('ANSWER')
         self.buttonANSWER.autoDefault()
         self.buttonANSWER.clicked.connect(self.button_answer)
+        self.buttonSTOP.clicked.connect(self.button_stop)
         self.progress.setRange(1, len(self.words))
         # self.ButtonExit.clicked.connect(lambda : self.close())
         self.update_progress()
+
+    def button_stop(self):
+        self.exit_question = Exit_question(self)
+        self.close
+
 
     def update_progress(self):
         self.progress.setValue(self.num_done + 1)
@@ -225,12 +232,7 @@ class Translate_EN(QDialog):
 
     def complete(self):
         print("complete")
-        # FIXME: почему-то окно с результатми под главным окном
         self.results = Results(self)
-        self.close()
-
-    def closeEvent(self, e):
-        self.main = MainWindow()
         self.close()
 
 
@@ -416,7 +418,6 @@ class StartTest(QDialog):
             self.complete()
 
     def button_stop(self):
-        # TODO: сделать воспрос: вы действительно хотите закночить тест преждевремено
         self.question_ex = Exit_question(self)
 
     def update_progress(self):
@@ -427,16 +428,13 @@ class StartTest(QDialog):
         self.results = Results(self)
         self.close()
 
-    def closeEvent(self, e):
-        self.main = MainWindow()
-        self.close()
-
 
 class Exit_question(QDialog):
     def __init__(self, parent):
         super().__init__()
         loadUi('qt_ui/exit_question.ui', self)
         self._parent = parent
+        self.setWindowModality(1)
         self.show()
         self.initui()
 
@@ -446,10 +444,35 @@ class Exit_question(QDialog):
 
     def bttn_yes(self):
         self.close()
+        self.main = MainWindow()
         self._parent.close()
 
     def bttn_no(self):
         self.close()
+
+
+class Save_question(QDialog):
+    def __init__(self, parent):
+        super().__init__()
+        loadUi('qt_ui/exit_question.ui', self)
+        self.parent = parent
+        self.setWindowModality(1)
+        self.show()
+        self.initui()
+
+    def initui(self):
+        self.bttnYES.clicked.connect(self.bttn_yes)
+        self.bttnNO.clicked.connect(self.bttn_no)
+
+    def bttn_yes(self):
+        self.parent.btn_save()
+        self.rewrite_file()
+        self.close()
+        self.parent.close()
+
+    def bttn_no(self):
+        self.close()
+        self.parent.close()
 
 
 class Customization(QDialog):
@@ -488,7 +511,10 @@ class Customization(QDialog):
         self.toremove.clicked.connect(self.btn_remove)
         self.tosave.clicked.connect(self.btn_save)
         self.tocancel.clicked.connect(self.btn_cancel)
-        self.toback.clicked.connect(self.close)
+        self.toback.clicked.connect(self.btn_back)
+
+    def btn_back(self):
+        self.save_question = Save_question(self)
 
     def btn_remove(self):
         index = self.list_words.row(self.list_words.currentItem())
@@ -502,22 +528,43 @@ class Customization(QDialog):
     def btn_save(self):
         self.words = []
         el = 0
+
         while el < self.list_words.rowCount():
-            en_word = self.list_words.item(el, 0).text()
-            ru_word = self.list_words.item(el, 1).text()
-            remark = self.list_words.item(el, 2).text()
-            ru_remark = self.list_words.item(el, 3).text()
-            theme = self.list_words.item(el, 4).text()
-            new_word = {
-                "russian_word": ru_word,
-                "rus_remark": ru_remark,
-                "remark": remark,
-                "english_word": en_word,
-                "rating": 100,
-                "theme": theme
-            }
+
+            if (self.list_words.item(el, 0) == None) or (self.list_words.item(el, 1) == None):
+                self.reminder = Reminder()
+            elif (self.list_words.item(el, 2) == None) or (self.list_words.item(el, 3) == None) or (
+                        self.list_words.item(el, 4) == None):
+                en_word = self.list_words.item(el, 0).text()
+                ru_word = self.list_words.item(el, 1).text()
+                remark = ""
+                ru_remark = ""
+                theme = "elementary words"
+                new_word = {
+                    "russian_word": ru_word,
+                    "rus_remark": ru_remark,
+                    "remark": remark,
+                    "english_word": en_word,
+                    "rating": 100,
+                    "theme": theme
+                }
+                self.words.append(new_word)
+            else:
+                en_word = self.list_words.item(el, 0).text()
+                ru_word = self.list_words.item(el, 1).text()
+                remark = self.list_words.item(el, 2).text()
+                ru_remark = self.list_words.item(el, 3).text()
+                theme = self.list_words.item(el, 4).text()
+                new_word = {
+                    "russian_word": ru_word,
+                    "rus_remark": ru_remark,
+                    "remark": remark,
+                    "english_word": en_word,
+                    "rating": 100,
+                    "theme": theme
+                    }
+                self.words.append(new_word)
             el += 1
-            self.words.append(new_word)
         self.rewrite_file()
 
     def rewrite_file(self):
@@ -554,6 +601,14 @@ class Customization(QDialog):
     def closeEvent(self, e):
         self.main = MainWindow()
         self.close()
+
+
+class Reminder(QDialog):
+    def __init__(self):
+        super().__init__()
+        loadUi('qt_ui/dictionary.ui', self)
+        self.buttonOK.clicked.connect(self.close)
+        self.show()
 
 
 def line_treatment(str):

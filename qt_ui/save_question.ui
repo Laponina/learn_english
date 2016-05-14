@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>exit_question</class>
- <widget class="QDialog" name="exit_question">
+ <class>save_question</class>
+ <widget class="QDialog" name="save_question">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>382</width>
-    <height>229</height>
+    <height>217</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>50</y>
-     <width>271</width>
-     <height>20</height>
+     <x>80</x>
+     <y>80</y>
+     <width>241</width>
+     <height>17</height>
     </rect>
    </property>
    <property name="font">
@@ -28,35 +28,20 @@
     </font>
    </property>
    <property name="text">
-    <string>Вы действительно хотите завершить </string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>100</y>
-     <width>131</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>предварительно?</string>
+    <string>Сохранить изменения в словарь?</string>
    </property>
   </widget>
   <widget class="QPushButton" name="bttnYES">
    <property name="geometry">
     <rect>
      <x>280</x>
-     <y>180</y>
+     <y>170</y>
      <width>87</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>Да</string>
@@ -65,11 +50,14 @@
   <widget class="QPushButton" name="bttnNO">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>180</y>
+     <x>190</x>
+     <y>170</y>
      <width>87</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>Нет</string>

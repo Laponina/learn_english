@@ -1,34 +1,34 @@
 [
   {
+    "rus_remark": "Она играет на пианино",
     "remark": "She plays the piano",
-    "rating": 100,
-    "theme": "elementary words",
-    "russian_word": "играть",
     "english_word": "play",
-    "rus_remark": "Она играет на пианино"
+    "theme": "elementary words",
+    "rating": 100,
+    "russian_word": "играть"
   },
   {
+    "rus_remark": "Мне нравится мороженое",
     "remark": "I like ice cream",
-    "rating": 100,
-    "theme": "elementary words",
-    "russian_word": "нравиться",
     "english_word": "like",
-    "rus_remark": "Мне нравится мороженое"
+    "theme": "elementary words",
+    "rating": 100,
+    "russian_word": "нравиться"
   },
   {
+    "rus_remark": "он хочет очень много еды",
     "remark": "he wants a lot of food",
-    "rating": 100,
-    "theme": "elementary words",
-    "russian_word": "еда",
     "english_word": "food",
-    "rus_remark": "он хочет очень много еды"
+    "theme": "elementary words",
+    "rating": 100,
+    "russian_word": "еда"
   },
   {
+    "rus_remark": "Моя мать любит меня",
     "remark": "My mother loves me",
-    "rating": 100,
-    "theme": "elementary words",
-    "russian_word": "мать",
     "english_word": "mother",
-    "rus_remark": "Моя мать любит меня"
+    "theme": "elementary words",
+    "rating": 100,
+    "russian_word": "мать"
   }
 ]

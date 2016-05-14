@@ -27,6 +27,9 @@
      <pointsize>11</pointsize>
     </font>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>Answer</string>
    </property>
@@ -44,6 +47,9 @@
     <font>
      <pointsize>11</pointsize>
     </font>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>Stop test</string>

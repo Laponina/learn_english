@@ -22,6 +22,9 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>translate to russian</string>
    </property>
@@ -34,6 +37,9 @@
      <width>130</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>translate to english</string>
@@ -48,6 +54,9 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>customization</string>
    </property>
@@ -61,6 +70,9 @@
      <height>27</height>
     </rect>
    </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
    <property name="text">
     <string>exit</string>
    </property>
@@ -73,6 +85,9 @@
      <width>130</width>
      <height>27</height>
     </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
     <string>start test</string>
